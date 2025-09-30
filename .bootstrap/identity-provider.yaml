@@ -4,11 +4,17 @@ metadata:
   name: cluster
 spec:
   identityProviders:
+  - htpasswd:
+      fileData:
+        name: htpasswd
+    mappingMethod: claim
+    name: htpasswd_provider
+    type: HTPasswd
   - name: github
     mappingMethod: claim 
     type: GitHub
     github:
-      clientID: 06670858f23f6fc4aabe
+      clientID: 7dde181b710ec4b321fb
       clientSecret: 
         name: github-oauth
       organizations: 

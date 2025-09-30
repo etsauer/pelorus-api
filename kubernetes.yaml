@@ -7,7 +7,7 @@ metadata:
   labels:
     app.kubernetes.io/managed-by: quarkus
     app.kubernetes.io/name: pelorus-api
-    app.kubernetes.io/version: 1.0.0-SNAPSHOT
+    app.kubernetes.io/version: ${APP_VERSION}
 spec:
   to:
     kind: Service
@@ -27,7 +27,7 @@ metadata:
     app.quarkus.io/build-timestamp: 2023-10-03 - 18:46:17 +0000
   labels:
     app.kubernetes.io/name: pelorus-api
-    app.kubernetes.io/version: 1.0.0-SNAPSHOT
+    app.kubernetes.io/version: ${APP_VERSION}
     app.kubernetes.io/managed-by: quarkus
   name: pelorus-api
   namespace: pelorus-api
@@ -39,7 +39,7 @@ spec:
       targetPort: 8080
   selector:
     app.kubernetes.io/name: pelorus-api
-    app.kubernetes.io/version: 1.0.0-SNAPSHOT
+    app.kubernetes.io/version: ${APP_VERSION}
   type: ClusterIP
 ---
 apiVersion: apps/v1
@@ -51,7 +51,7 @@ metadata:
   labels:
     app.kubernetes.io/managed-by: quarkus
     app.kubernetes.io/name: pelorus-api
-    app.kubernetes.io/version: 1.0.0-SNAPSHOT
+    app.kubernetes.io/version: ${APP_VERSION}
   name: pelorus-api
   namespace: pelorus-api
 spec:
@@ -59,7 +59,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: pelorus-api
-      app.kubernetes.io/version: 1.0.0-SNAPSHOT
+      app.kubernetes.io/version: ${APP_VERSION}
   template:
     metadata:
       annotations:
@@ -68,7 +68,7 @@ spec:
       labels:
         app.kubernetes.io/managed-by: quarkus
         app.kubernetes.io/name: pelorus-api
-        app.kubernetes.io/version: 1.0.0-SNAPSHOT
+        app.kubernetes.io/version: ${APP_VERSION}
     spec:
       containers:
       - env:
@@ -82,7 +82,9 @@ spec:
           value: "https://prometheus-pelorus.pelorus.svc:9091/api/v1"
         - name: JAVA_OPTS
           value: "-Djavax.net.ssl.trustStore=/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt -Dquarkus.log.category.\"javax.net.ssl\".level=DEBUG"
-        image: quay.io/etsauer/quarkus-app:1.0.0-SNAPSHOT
+        - name: CORS_ORIGINS
+          value: "https://dev-intel-dev-intel.apps.cluster-hblwp.dynamic.redhatworkshops.io"
+        image: quay.io/etsauer/quarkus-app:${APP_VERSION}
         imagePullPolicy: Always
         name: pelorus-api
         ports:
