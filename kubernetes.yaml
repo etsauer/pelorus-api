@@ -82,9 +82,13 @@ spec:
           value: "https://prometheus-pelorus.pelorus.svc:9091/api/v1"
         - name: JAVA_OPTS
           value: "-Djavax.net.ssl.trustStore=/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt -Dquarkus.log.category.\"javax.net.ssl\".level=DEBUG"
+<<<<<<< Updated upstream
         - name: CORS_ORIGINS
           value: "https://dev-intel-dev-intel.apps.cluster-hblwp.dynamic.redhatworkshops.io"
         image: quay.io/etsauer/quarkus-app:${APP_VERSION}
+=======
+        image: quay.io/etsauer/quarkus-app:fastjar
+>>>>>>> Stashed changes
         imagePullPolicy: Always
         name: pelorus-api
         ports:
